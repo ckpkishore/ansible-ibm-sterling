@@ -15,7 +15,7 @@
     path: "{{ my_workdir }}/ibm-pem-standard-prod/templates/resource-pvc.yml"
     state: absent
   # with_items:
-  #   - "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz"
+  #   - "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz"
   #   - "{{ my_workdir }}/ibm-pem-standard-prod"
 
 - name: "Replace dot with dash in migrator-job.yml name field"

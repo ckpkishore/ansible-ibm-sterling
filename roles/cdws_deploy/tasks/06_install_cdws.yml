@@ -13,7 +13,7 @@
 
 - name: "Set fact helm file"
   ansible.builtin.set_fact:
-    my_helmfile: "{{ my_workdir }}/ibm-cdws-{{ compatibility_matrix[cdws_version].helm_version }}.tgz"
+    my_helmfile: "{{ my_workdir }}/ibm-cdws-{{ compatibility_matrix[cdws_version]['helm_version'] }}.tgz"
 
 - name: Debug
   ansible.builtin.debug:

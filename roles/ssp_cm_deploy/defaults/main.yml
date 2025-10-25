@@ -53,6 +53,7 @@ compatibility_matrix:
   6.2.1.0-iFix00-2025-07-04:
     helm_version: "1.6.0"
     image_tag: "6.2.1.0-iFix00-2025-07-04"
+    affinity_default: "{}"
   6.2.0.1.02:
     helm_version: "1.5.4"
     image_tag: "6.2.0.1.02"

@@ -1,7 +1,7 @@
 ---
 - name: "Set fact helm file"
   ansible.builtin.set_fact:
-    my_helmfile: "{{ my_workdir }}/ibm-seas-{{ compatibility_matrix[seas_version].helm_version }}.tgz"
+    my_helmfile: "{{ my_workdir }}/ibm-seas-{{ compatibility_matrix[seas_version]['helm_version'] }}.tgz"
     my_valuesfile: "{{ my_workdir }}/myseas_values-{{ my_serial }}.yml"
 
 - name: Generate my_values.yml

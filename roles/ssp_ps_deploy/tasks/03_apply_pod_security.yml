@@ -4,13 +4,13 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ my_workdir }}/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version].helm_version }}.tgz"
+    - "{{ my_workdir }}/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version]['helm_version'] }}.tgz"
     - "{{ my_workdir }}/myssp_ps_values.yml"
 
 - name: "Download Helm chart"
   ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version].helm_version }}.tgz"
-    dest: "{{ my_workdir }}/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version].helm_version }}.tgz"
+    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version]['helm_version'] }}.tgz"
+    dest: "{{ my_workdir }}/ibm-ssp-ps-{{ compatibility_matrix[ssp_ps_version]['helm_version'] }}.tgz"
     mode: "0640"
   register: download_cout
   until: download_cout is succeeded

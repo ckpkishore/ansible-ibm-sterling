@@ -4,12 +4,12 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ my_workdir }}/ibm-sccm-{{ compatibility_matrix[scc_version].helm_version }}.tgz"
+    - "{{ my_workdir }}/ibm-sccm-{{ compatibility_matrix[scc_version]['helm_version'] }}.tgz"
 
 - name: "Download Helm chart"
   ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-sccm-{{ compatibility_matrix[scc_version].helm_version }}.tgz"
-    dest: "{{ my_workdir }}/ibm-sccm-{{ compatibility_matrix[scc_version].helm_version }}.tgz"
+    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-sccm-{{ compatibility_matrix[scc_version]['helm_version'] }}.tgz"
+    dest: "{{ my_workdir }}/ibm-sccm-{{ compatibility_matrix[scc_version]['helm_version'] }}.tgz"
     mode: "0640"
   register: download_cout
   until: download_cout is succeeded

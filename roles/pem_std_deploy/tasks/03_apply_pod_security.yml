@@ -4,13 +4,13 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz"
+    - "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz"
     - "{{ my_workdir }}/ibm-pem-standard-prod"
 
 - name: "Download Helm chart"
   ansible.builtin.get_url:
-    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz"
-    dest: "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz"
+    url: "https://raw.githubusercontent.com/IBM/charts/master/repo/ibm-helm/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz"
+    dest: "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz"
     mode: "0666"
   register: download_cout
   until: download_cout is succeeded
@@ -18,12 +18,12 @@
 
 # - name: "Extract Helm chart"
 #   ansible.builtin.unarchive:
-#     src: "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz"
+#     src: "{{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz"
 #     dest: "{{ my_workdir }}"
 #     remote_src: no
 
 - name: "Extract Helm chart"
-  ansible.builtin.command: "tar -xzvf {{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version].helm_version }}.tgz -C {{ my_workdir }}"
+  ansible.builtin.command: "tar -xzvf {{ my_workdir }}/ibm-pem-standard-prod-{{ compatibility_matrix[pem_version]['helm_version'] }}.tgz -C {{ my_workdir }}"
   register: untar_cout
   changed_when: ( untar_cout.rc == 0)
 
