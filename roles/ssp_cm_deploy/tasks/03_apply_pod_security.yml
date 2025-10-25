@@ -2,7 +2,7 @@
 
 - name: "Show files to delete"
   debug:
-    msg: "{{ my_workdir }}/ibm-ssp-engine-{{ compatibility_matrix[ssp_version]['helm_version'] }}.tgz"
+    msg: "{{ my_workdir }}/ibm-ssp-cm-{{ compatibility_matrix[ssp_cm_version]['helm_version'] }}.tgz"
 
 - name: "Cleanup directories and files"
   ansible.builtin.file:
