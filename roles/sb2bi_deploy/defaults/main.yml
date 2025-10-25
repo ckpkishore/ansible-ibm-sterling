@@ -71,9 +71,9 @@ si_itxa_enabled: "{{ lookup('env', 'SI_ITXA_ENABLED') | default('false', true) }
 # -----------------------------------------------------------------------------
 my_workdir: /tmp
 
-si_namespace: "sterling-b2bi-{{ si_instanceid }}-app"
-si_db2_namespace: "sterling-b2bi-{{ si_instanceid }}-db2"
-si_mq_namespace: "sterling-b2bi-{{ si_instanceid }}-mq"
+si_namespace: "ibm-b2bi-{{ si_instanceid }}-app"
+si_db2_namespace: "ibm-b2bi-{{ si_instanceid }}-db2"
+si_mq_namespace: "ibm-b2bi-{{ si_instanceid }}-mq"
 si_registry_secret: si-ibm-registry
 si_system_passphrase_secret: si-system-passphrase-secret
 si_db_secret: si-db-secret

@@ -2,7 +2,7 @@
 # Configure Db2 instance
 # -----------------------------------------------------------------------------------------------------------------
 si_instanceid: "{{ lookup('env', 'SI_INSTANCEID') }}"
-db2_namespace: "sterling-b2bi-{{ si_instanceid }}-db2"
+db2_namespace: "ibm-b2bi-{{ si_instanceid }}-db2"
 db2_password: "{{ lookup('env', 'DB2_PASSWORD') | default('passw0rd', true) }}"
 db2_version: "{{ lookup('env', 'DB2_VERSION') | default('11.5.9.0', true) }}"
 

@@ -33,7 +33,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: fix-permission
-  namespace: sterling-b2bi-poc01-app
+  namespace: ibm-b2bi-poc01-app
 spec:
   containers:
     - name: fix-permission

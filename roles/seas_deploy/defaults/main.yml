@@ -9,7 +9,8 @@ seas_action: "{{ lookup('env', 'SEAS_ACTION') | default('install', true) }}"
 
 # Configure SEAS instance
 # -----------------------------------------------------------------------------------------------------------------
-seas_namespace: "{{ lookup('env', 'SEAS_NAMESPACE') | default('sterling-seas01', true) }}"
+seas_instanceid: "{{ lookup('env', 'SEAS_INSTANCEID') }}"
+seas_namespace: "ibm-seas-{{ seas_instanceid }}-app"
 seas_version: "{{ lookup('env', 'SEAS_VERSION') | default('6.1.0.2.03', true) }}"
 
 seas_license_type: "{{ lookup('env', 'SEAS_LICENSETYPE') | default('non-prod', true) }}" # prod or no-prod
