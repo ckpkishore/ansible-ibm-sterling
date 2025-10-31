@@ -33,6 +33,10 @@
 #     timeout: "{{ my_helm.timeout }}"
 #     values_files: "{{ my_helm.values }}"
 
+- name: "Wait : Give 1 minute to container to be ready"
+  ansible.builtin.pause:
+    minutes: 1
+
 - name: "Lookup SEAS Pod"
   kubernetes.core.k8s_info:
     kind: Pod
