@@ -46,10 +46,14 @@
       type: Ready
       status: "True"
   register: seas_pod
+  failed_when: seas_pod.resources | length == 0
+  retries: 5
+  delay: 30
 
 - name: Configure facts
   ansible.builtin.set_fact:
     seas_pod_name: "{{ seas_pod.resources[0].metadata.name }}"
+  when: seas_pod.resources | length > 0
 
 - name: "IBM Sterling SEAS Summary:"
   ansible.builtin.debug:
