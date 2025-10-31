@@ -51,8 +51,6 @@
       status: "True"
   register: seas_pod
   failed_when: seas_pod.resources | length == 0
-  retries: 5
-  delay: 30
 
 - name: Configure facts
   ansible.builtin.set_fact:
