@@ -56,10 +56,10 @@
   register: ssp_cm_pod
   when: not ssp_cm_skip_helm
 
-- name: Configure facts
-  ansible.builtin.set_fact:
-    ssp_cm_pod_name: "{{ ssp_cm_pod.resources[0].metadata.name }}"
-  when: not ssp_cm_skip_helm
+# - name: Configure facts
+#   ansible.builtin.set_fact:
+#     ssp_cm_pod_name: "{{ ssp_cm_pod.resources[0].metadata.name }}"
+#   when: not ssp_cm_skip_helm
 
 - name: "IBM Sterling SSP CM Summary:"
   ansible.builtin.debug:
