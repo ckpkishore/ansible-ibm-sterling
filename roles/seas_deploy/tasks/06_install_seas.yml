@@ -33,34 +33,10 @@
 #     timeout: "{{ my_helm.timeout }}"
 #     values_files: "{{ my_helm.values }}"
 
-- name: "Wait : Give 1 minute to container to be ready"
-  ansible.builtin.pause:
-    minutes: 1
-
-- name: "Lookup SEAS Pod"
-  kubernetes.core.k8s_info:
-    kind: Pod
-    namespace: "{{ seas_namespace }}"
-    label_selectors:
-      - release=s0
-    wait: true
-    wait_sleep: 30
-    wait_timeout: 300 # 5 mins until we give up waiting for the pod to get into the expected state
-    wait_condition:
-      type: Ready
-      status: "True"
-  register: seas_pod
-  failed_when: seas_pod.resources | length == 0
-
-- name: Configure facts
-  ansible.builtin.set_fact:
-    seas_pod_name: "{{ seas_pod.resources[0].metadata.name }}"
-  when: seas_pod.resources | length > 0
-
 - name: "IBM Sterling SEAS Summary:"
   ansible.builtin.debug:
     msg:
       - "IBM Sterling SEAS status ............................ Ready!"
       - "SEAS namespace ...................................... {{ seas_namespace }}"
-      - "Pod name ............................................ {{ seas_pod_name }}"
+#      - "Pod name ............................................ {{ seas_pod_name }}"
       - "For username and password check secret .............. {{ seas_secret }}'"
