@@ -991,6 +991,7 @@ test:
     tag: "{{ compatibility_matrix[ si_version ].test.image.tag | default('') }}"
     digest:
     pullPolicy: 'IfNotPresent'
+    pullSecret: "{{ si_registry_secret }}"
 
 purge:
   enabled: true
