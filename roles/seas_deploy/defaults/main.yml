@@ -35,6 +35,10 @@ seas_use_dynamic_provisioning: false
 
 # https://github.com/IBM/charts/tree/master/repo/ibm-helm
 compatibility_matrix:
+  6.1.1.2-iFix00-2025-12-18:
+    helm_version: "1.6.2"
+    image_repository: "cp.icr.io/cp/ibm-seas/seas-docker-image"
+    image_tag: "6.1.1.2-iFix00-2025-12-18"
   6.1.0.2.03:
     helm_version: "1.5.4"
     image_repository: "cp.icr.io/cp/ibm-seas/seas-docker-image"
