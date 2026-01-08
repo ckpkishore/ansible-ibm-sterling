@@ -119,7 +119,7 @@ compatibility_matrix:
         seasVersion: "1.0"
       itxIntegration:       # Integration with ITX is not supported in SI 6210 release
         image:
-          tag: 11.0.2.0.20250829"
+          tag: "11.0.2.0.20250829"
       itxaIntegration:      # Integration with ITXA Certified Container edition is supported only for release version 10.0.1.9 onwards
         image:              # Integration with ITXA Certified Container edition is not supported in SI 6210 release
           tag: "10.0.2.0-x86_64-20250516"
