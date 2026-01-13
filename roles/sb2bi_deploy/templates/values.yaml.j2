@@ -1109,38 +1109,4 @@ as4Service:
       internal:
         host:
 
-identityService:
-  enabled: false
-  license: false
-  replicaCount: 1
-  image:
-    repository: "cp.icr.io/cp/ibm-b2bi/b2bi-identityservice"
-    # Provide the tag value in double quotes
-    tag: "{{ compatibility_matrix[ si_version ].identityService.image.tag | default('') }}"
-    # If digest is specified, it takes precedence over tag
-    digest: 
-    pullPolicy: IfNotPresent
-    pullSecret: ""
-  serviceAccount:
-    name: default
-  service:
-    type: ClusterIP
-    externalPort: 443
-    externalIP:
-  ingress:
-    enabled: true
-    host: ""
-  application:
-    server:
-      ssl:
-        enabled: true
-        tlsSecretName:
-    # Name of Client secret which contains client id and client secret.
-    clientSecret: "identity-client-secret"
-    # Database configuration
-    dbVendor:
-    dbHost:
-    dbPort:
-    dbData:
-    dbDrivers:
-    dbSecret:
+
