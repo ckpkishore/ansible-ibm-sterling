@@ -11,15 +11,21 @@ minio_storage_size: "{{ lookup('env', 'MINIO_STORAGE_SIZE') | default('10Gi', tr
 
 storage_class_matrix:
   ibmcloud:
-    rwx: "ibmc-file-gold-gid" # ReadWriteMany
+    rwx: "ibmc-file-gold-gid"   # ReadWriteMany
     rwx_nogid: "ibmc-file-gold" # ReadWriteMany no GID
-    rwo: "ibmc-block-gold" # ReadWriteOnce
-    rom: "" # ReadOnlyMany
-    rwop: "" # ReadWriteOncePod
+    rwo: "ibmc-file-gold"       # ReadWriteOnce
+    rom: ""                     # ReadOnlyMany
+    rwop: ""                    # ReadWriteOncePod
   redhat:
     rwx: "ocs-storagecluster-cephfs"
     rwx_nogid: "ocs-storagecluster-cephfs"
     rwo: "ocs-storagecluster-ceph-rbd"
+    rom: ""
+    rwop: ""
+  redhat-external:
+    rwx: "ocs-external-storagecluster-cephfs"
+    rwx_nogid: "ocs-external-storagecluster-cephfs"
+    rwo: "ocs-external-storagecluster-ceph-rbd"
     rom: ""
     rwop: ""
   aws:
@@ -52,3 +58,4 @@ storage_class_matrix:
     rwo: "rook-cephfs" # rook-ceph-block
     rom: ""
     rwop: ""
+
