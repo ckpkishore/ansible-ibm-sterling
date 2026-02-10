@@ -227,9 +227,9 @@
 - name: "Set new facts based on resource lookups"
   set_fact:
     kafka_bootstrap_host: "{{ tls_listener.bootstrapServers }}"
-    kafka_bootstrap_cert: "{{ tls_listener.certificates[0] | default('') }}"
+    kafka_bootstrap_cert: "{{ tls_listener.get('certificates', [''])[0] }}"
     kafka_int_bootstrap_host: "{{ internal_listener.bootstrapServers }}"
-    kafka_int_bootstrap_cert: "{{ internal_listener.certificates[0] | default('') }}"
+    kafka_int_bootstrap_cert: "{{ internal_listener.get('certificates', [''])[0] }}"
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
