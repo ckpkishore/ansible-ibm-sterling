@@ -219,12 +219,17 @@
     namespace: "{{ kafka_namespace }}"
   register: kafka_user_secret_lookup
 
+- name: "Extract listener information"
+  set_fact:
+    tls_listener: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', '==', 'tls') | list | first }}"
+    internal_listener: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', '==', 'internal') | list | first }}"
+
 - name: "Set new facts based on resource lookups"
   set_fact:
-    kafka_bootstrap_host: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='bootstrapServers') | list)[0] }}"
-    kafka_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='certificates') | list)[0][0] }}"
-    kafka_int_bootstrap_host: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='bootstrapServers') | list)[0] }}"
-    kafka_int_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='certificates') | list)[0][0] }}"
+    kafka_bootstrap_host: "{{ tls_listener.bootstrapServers }}"
+    kafka_bootstrap_cert: "{{ tls_listener.certificates[0] }}"
+    kafka_int_bootstrap_host: "{{ internal_listener.bootstrapServers }}"
+    kafka_int_bootstrap_cert: "{{ internal_listener.certificates[0] }}"
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
