@@ -219,16 +219,12 @@
     namespace: "{{ kafka_namespace }}"
   register: kafka_user_secret_lookup
 
-- name: "Find listener indices"
-  set_fact:
-    listeners_list: "{{ kafka_cluster_lookup.resources[0].status.listeners }}"
-
 - name: "Set new facts based on resource lookups"
   set_fact:
-    kafka_bootstrap_host: "{{ (listeners_list | selectattr('name', 'equalto', 'tls') | list)[0].bootstrapServers }}"
-    kafka_bootstrap_cert: "{{ (listeners_list | selectattr('name', 'equalto', 'tls') | list)[0].certificates[0] if ((listeners_list | selectattr('name', 'equalto', 'tls') | list)[0].certificates | default([]) | length > 0) else '' }}"
-    kafka_int_bootstrap_host: "{{ (listeners_list | selectattr('name', 'equalto', 'internal') | list)[0].bootstrapServers }}"
-    kafka_int_bootstrap_cert: "{{ (listeners_list | selectattr('name', 'equalto', 'internal') | list)[0].certificates[0] if ((listeners_list | selectattr('name', 'equalto', 'internal') | list)[0].certificates | default([]) | length > 0) else '' }}"
+    kafka_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners[2].bootstrapServers }}"
+    kafka_bootstrap_cert: "{{ kafka_cluster_lookup.resources[0].status.listeners[2].certificates[0] | default('') }}"
+    kafka_int_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners[1].bootstrapServers }}"
+    kafka_int_bootstrap_cert: "{{ kafka_cluster_lookup.resources[0].status.listeners[1].certificates[0] | default('') }}"
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
