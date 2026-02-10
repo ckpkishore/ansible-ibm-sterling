@@ -4,6 +4,8 @@ kind: Kafka
 metadata:
   name: "{{ kafka_cluster_name }}"
   namespace: "{{ kafka_namespace }}"
+  annotations:
+    strimzi.io/node-pools: "disabled"
 spec:
   # -------------------------------------------------------
   kafka:
@@ -130,14 +132,6 @@ spec:
     template:
       pod:
         tmpDirSizeLimit: 1024Mi
-    tlsSidecar:
-      resources:
-        requests:
-          cpu: 200m
-          memory: 64Mi
-        limits:
-          cpu: 500m
-          memory: 128Mi
     userOperator:
       logging:
         type: inline
