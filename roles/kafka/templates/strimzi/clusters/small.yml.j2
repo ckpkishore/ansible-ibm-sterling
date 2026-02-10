@@ -5,12 +5,12 @@ metadata:
   name: "{{ kafka_cluster_name }}"
   namespace: "{{ kafka_namespace }}"
   annotations:
-    strimzi.io/node-pools: "disabled"
+    strimzi.io/node-pools: "enabled"
 spec:
   # -------------------------------------------------------
   kafka:
     version: "{{ kafka_version }}"
-    replicas: 3
+    # replicas moved to KafkaNodePool
     resources:
       requests:
         memory: 4Gi
@@ -46,14 +46,7 @@ spec:
       log.cleanup.policy: delete
       auto.create.topics.enable: false
       unclean.leader.election.enable: true
-    storage:
-      type: jbod
-      volumes:
-        - id: 0
-          type: persistent-claim
-          class: "{{ kafka_storage_class }}"
-          size: "{{ kafka_storage_size }}"
-          deleteClaim: true
+    # storage moved to KafkaNodePool
     authorization:
         type: simple
         superUsers:

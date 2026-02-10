@@ -129,14 +129,21 @@
     apply: true
     template: "templates/strimzi/podmonitor.yml.j2"
 
-# 10. Deploy the cluster
+# 10. Create KafkaNodePool (required for Strimzi 0.48.0+)
+# -----------------------------------------------------------------------------
+- name: "Create KafkaNodePool"
+  kubernetes.core.k8s:
+    apply: true
+    template: "templates/strimzi/kafka-node-pool.yml.j2"
+
+# 11. Deploy the Kafka cluster
 # -----------------------------------------------------------------------------
 - name: "Create Kafka Cluster"
   kubernetes.core.k8s:
     apply: true
     template: "templates/strimzi/clusters/{{ kafka_cluster_size }}.yml.j2"
 
-# 11. Wait until the KafkaUser CRD is available
+# 12. Wait until the KafkaUser CRD is available
 # -----------------------------------------------------------------------------
 - name: "wait_for_crd : Wait until the kafkausers.kafka.strimzi.io CRD is available"
   kubernetes.core.k8s_info:
@@ -156,14 +163,14 @@
     - _crd_info.resources is defined
     - _crd_info.resources | length > 0
 
-# 12. Create the Sterling user
+# 13. Create the Sterling user
 # -----------------------------------------------------------------------------
 - name: "Create Kafka User"
   kubernetes.core.k8s:
     apply: true
     template: templates/strimzi/kafka-user.yml.j2
 
-# 13. Create Grafana dashboards for Kafka monitoring
+# 14. Create Grafana dashboards for Kafka monitoring
 # -----------------------------------------------------------------------------
 - name: "Create Kafka monitoring dashboards"
   kubernetes.core.k8s:
@@ -181,7 +188,7 @@
     - "templates/strimzi/dashboards-v5/*.yml.j2"
   when: supports_grafanav5
 
-# 14. Lookup details
+# 15. Lookup details
 # -----------------------------------------------------------------------------
 # We have seen instances where the Kafka cluster is reported as Ready but
 # the necessary fields in the status resource are not set yet so we retry until
