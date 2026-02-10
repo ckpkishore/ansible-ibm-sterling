@@ -222,9 +222,9 @@
 - name: "Set new facts based on resource lookups"
   set_fact:
     kafka_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners[2].bootstrapServers }}"
-    kafka_bootstrap_cert: "{{ kafka_cluster_lookup.resources[0].status.listeners[2].certificates[0] | default('') }}"
+    kafka_bootstrap_cert: ""
     kafka_int_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners[1].bootstrapServers }}"
-    kafka_int_bootstrap_cert: "{{ kafka_cluster_lookup.resources[0].status.listeners[1].certificates[0] | default('') }}"
+    kafka_int_bootstrap_cert: ""
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
