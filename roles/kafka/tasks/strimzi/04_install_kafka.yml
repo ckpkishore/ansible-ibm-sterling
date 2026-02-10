@@ -219,16 +219,12 @@
     namespace: "{{ kafka_namespace }}"
   register: kafka_user_secret_lookup
 
-- name: "Debug Kafka listeners structure"
-  debug:
-    msg: "{{ kafka_cluster_lookup.resources[0].status.listeners }}"
-
 - name: "Set new facts based on resource lookups"
   set_fact:
-    kafka_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='bootstrapServers') | first }}"
-    kafka_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='certificates') | first | first) if (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='certificates') | first | default([]) | length > 0) else '' }}"
-    kafka_int_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='bootstrapServers') | first }}"
-    kafka_int_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='certificates') | first | first) if (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='certificates') | first | default([]) | length > 0) else '' }}"
+    kafka_bootstrap_host: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='bootstrapServers') | list)[0] }}"
+    kafka_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'tls') | map(attribute='certificates') | list)[0][0] }}"
+    kafka_int_bootstrap_host: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='bootstrapServers') | list)[0] }}"
+    kafka_int_bootstrap_cert: "{{ (kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', 'equalto', 'internal') | map(attribute='certificates') | list)[0][0] }}"
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
