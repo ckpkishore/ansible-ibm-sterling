@@ -224,12 +224,18 @@
     tls_listener: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', '==', 'tls') | list | first }}"
     internal_listener: "{{ kafka_cluster_lookup.resources[0].status.listeners | selectattr('name', '==', 'internal') | list | first }}"
 
+- name: "Debug extracted listeners"
+  debug:
+    msg:
+      - "TLS Listener: {{ tls_listener }}"
+      - "Internal Listener: {{ internal_listener }}"
+
 - name: "Set new facts based on resource lookups"
   set_fact:
     kafka_bootstrap_host: "{{ tls_listener.bootstrapServers }}"
-    kafka_bootstrap_cert: "{{ tls_listener.certificates[0] }}"
+    kafka_bootstrap_cert: "{{ tls_listener.certificates[0] if tls_listener.certificates is defined and tls_listener.certificates | length > 0 else '' }}"
     kafka_int_bootstrap_host: "{{ internal_listener.bootstrapServers }}"
-    kafka_int_bootstrap_cert: "{{ internal_listener.certificates[0] }}"
+    kafka_int_bootstrap_cert: "{{ internal_listener.certificates[0] if internal_listener.certificates is defined and internal_listener.certificates | length > 0 else '' }}"
     kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
 
 - name: "Debug new facts"
