@@ -84,3 +84,7 @@ storage_class_matrix:
     rwo: "rook-cephfs" # rook-ceph-block
     rom: ""
     rwop: ""
+
+strimzi_namespace: sterling-kafka-strimzi
+strimzi_version: "0.45.0"
+strimzi_install_url: "https://github.com/strimzi/strimzi-kafka-operator/releases/download/{{ strimzi_version }}/strimzi-cluster-operator-{{ strimzi_version }}.yaml"
