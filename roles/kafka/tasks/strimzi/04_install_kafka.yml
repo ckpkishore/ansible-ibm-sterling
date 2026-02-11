@@ -225,7 +225,7 @@
     kafka_bootstrap_cert: ""
     kafka_int_bootstrap_host: "{{ kafka_cluster_lookup.resources[0].status.listeners[1].bootstrapServers }}"
     kafka_int_bootstrap_cert: ""
-    kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode }}"
+    kafka_user_password: "{{ kafka_user_secret_lookup.resources[0].data.password | b64decode if kafka_user_secret_lookup.resources | length > 0 else '' }}"
 
 - name: "Debug new facts"
   debug:
