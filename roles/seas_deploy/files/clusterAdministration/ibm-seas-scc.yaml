@@ -31,13 +31,13 @@ defaultAllowPrivilegeEscalation: false
 forbiddenSysctls:
   - "*"
 fsGroup:
-  type: MustRunAs
+  type: RunAsAny
   ranges:
     - min: 1
       max: 4294967294
 readOnlyRootFilesystem: false
 runAsUser:
-  type: MustRunAsRange
+  type: RunAsAny
   uidRangeMin: 1
   uidRangeMax: 1000639999
 seLinuxContext:
