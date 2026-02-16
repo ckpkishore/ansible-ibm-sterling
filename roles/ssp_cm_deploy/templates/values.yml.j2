@@ -83,25 +83,29 @@ persistentVolume:
   # Specify this to set access mode
   accessMode: "ReadWriteOnce"    
   
-# Manage Storage permission 
+# Manage Storage permission
 storageSecurity:
   # fsGroup -  Used for controlling access to block storage such as Ceph RBD, iSCSI, and some Cloud storage.
-  fsGroup: 65534
+  # OpenShift will automatically assign fsGroup from the namespace's UID range
+  # fsGroup: 65534
   # supplementalGroups - supplemental Groups IDs are used for controlling access to shared storage like NFS and GlusterFS
   # Replace supplementalGroup Id with NFS User's groupId if the root squash is enabled on NFS server otherwise volume access will fail.
-  supplementalGroups:
-  - 65534
+  # OpenShift will automatically assign supplementalGroups from the namespace's UID range
+  # supplementalGroups:
+  # - 65534
   # rootSquashCheck flag has been created for the new deployment to indicate whether the user has reviewed the rootSquash requirements.
   # Set it to true - if the deployment user has read the rootSquash requirement.
-  # Set it to false - if the deployment user has not read the rootSquash requirement. 
+  # Set it to false - if the deployment user has not read the rootSquash requirement.
   rootSquashCheck: true
-  # root squash setting 
+  # root squash setting
   rootSquash:
     # set it to true - If root squash is enabled on the mounted PV server.
     # set it to false - If root squash is disabled on the mounted PV server. In this scenario, the umask should be set to 002, since the mounted directory is owned by the root user and the group needs write permissions. Additionally, the mounted PV directory should have 775 permissions.  
     enabled: true
-    # It should correspond to either the fsGroup or supplementalGroup ID 
-    runAsUser: 65534
+    # It should correspond to either the fsGroup or supplementalGroup ID
+    # OpenShift will automatically assign runAsUser from the namespace's UID range
+    # Comment out runAsUser to let OpenShift assign it automatically
+    # runAsUser: 65534
   
 # Specify these fields for Services
 service:

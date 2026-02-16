@@ -9,7 +9,7 @@ allowedCapabilities: null
 apiVersion: security.openshift.io/v1
 defaultAddCapabilities: null
 fsGroup:
-  type: RunAsAny
+  type: MustRunAs
   ranges:
     - min: 1
       max: 4294967294
@@ -32,9 +32,7 @@ requiredDropCapabilities:
   - SETUID
   - SETGID
 runAsUser:
-  type: RunAsAny
-  uidRangeMin: 1000
-  uidRangeMax: 65535
+  type: MustRunAsRange
 seccompProfiles:
   - runtime/default
 seLinuxContext:

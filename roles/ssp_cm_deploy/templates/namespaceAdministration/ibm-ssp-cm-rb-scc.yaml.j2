@@ -1,7 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+kind: RoleBinding
 metadata:
   name: "ibm-ssp-cm-scc"
+  namespace: {{ ssp_cm_namespace }}
   labels:
     app: "ibm-ssp-cm-scc"
 roleRef:
@@ -9,7 +10,6 @@ roleRef:
   kind: ClusterRole
   name: "ibm-ssp-cm-scc"
 subjects:
-  - apiGroup: rbac.authorization.k8s.io
-    kind: Group
-    name: system:serviceaccounts
+  - kind: ServiceAccount
+    name: default
     namespace: {{ ssp_cm_namespace }}

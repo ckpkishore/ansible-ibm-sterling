@@ -34,7 +34,7 @@ The version of Kafka to deploy by the operator. Before changing the kafka_versio
 by the [amq-streams operator version](https://access.redhat.com/documentation/en-us/red_hat_amq_streams) or [strimzi operator version](https://strimzi.io/downloads/).
 
 - Environment Variable: `KAFKA_VERSION`
-- Default Value: `3.5.0` for AMQ Streams and `3.7.0` for Strimzi.
+- Default Value: `3.5.0` for AMQ Streams and `4.1.1` for Strimzi (operator 0.50.0 supports: 4.0.0, 4.0.1, 4.1.0, 4.1.1).
 
 ### kafka_namespace
 The namespace where the operator and Kafka cluster will be deployed.

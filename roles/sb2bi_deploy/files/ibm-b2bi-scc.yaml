@@ -20,7 +20,7 @@ defaultAllowPrivilegeEscalation: false
 forbiddenSysctls:
   - "*"
 fsGroup:
-  type: RunAsAny
+  type: MustRunAs
   ranges:
     - min: 1
       max: 4294967294
@@ -28,7 +28,7 @@ readOnlyRootFilesystem: false
 requiredDropCapabilities:
   - ALL
 runAsUser:
-  type: RunAsAny
+  type: MustRunAsRange
 # This can be customized for your host machine
 seLinuxContext:
   type: RunAsAny
