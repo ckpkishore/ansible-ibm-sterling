@@ -66,3 +66,11 @@
     state: present
     template: 'namespaceAdministration/ibm-ssp-ps-rb-scc.yaml.j2'
   when: scc_resource and scc_apiversion
+
+- name: Grant SCC to service account using oc adm policy
+  ansible.builtin.command:
+    cmd: "oc adm policy add-scc-to-user ibm-ssp-ps-scc -z default -n {{ ssp_ps_namespace }}"
+  register: scc_grant
+  changed_when: "'added' in scc_grant.stdout or 'scc \"ibm-ssp-ps-scc\" added' in scc_grant.stdout"
+  failed_when: false
+  when: scc_resource and scc_apiversion
