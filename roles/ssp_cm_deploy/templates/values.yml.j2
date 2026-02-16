@@ -99,11 +99,11 @@ storageSecurity:
   # root squash setting
   rootSquash:
     # set it to true - If root squash is enabled on the mounted PV server.
-    # set it to false - If root squash is disabled on the mounted PV server. In this scenario, the umask should be set to 002, since the mounted directory is owned by the root user and the group needs write permissions. Additionally, the mounted PV directory should have 775 permissions.  
+    # set it to false - If root squash is disabled on the mounted PV server. In this scenario, the umask should be set to 002, since the mounted directory is owned by the root user and the group needs write permissions. Additionally, the mounted PV directory should have 775 permissions.
     enabled: true
     # It should correspond to either the fsGroup or supplementalGroup ID
-    # OpenShift will automatically assign runAsUser from the namespace's UID range
-    runAsUser:
+    # Placeholder value - OpenShift SCC will override this with actual namespace UID
+    runAsUser: 1000
   
 # Specify these fields for Services
 service:
