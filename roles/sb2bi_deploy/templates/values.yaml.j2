@@ -88,11 +88,11 @@ extraPVCs: []
 
 security:
   # OpenShift will automatically assign supplementalGroups, fsGroup, runAsUser, and runAsGroup from the namespace's UID range
-  # supplementalGroups: [65534]
-  # fsGroup:
+  supplementalGroups: []
+  fsGroup:
   fsGroupChangePolicy: "OnRootMismatch"
-  # runAsUser:
-  # runAsGroup:
+  runAsUser:
+  runAsGroup:
 
 ingress:
   enabled: true

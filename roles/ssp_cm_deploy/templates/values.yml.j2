@@ -87,12 +87,11 @@ persistentVolume:
 storageSecurity:
   # fsGroup -  Used for controlling access to block storage such as Ceph RBD, iSCSI, and some Cloud storage.
   # OpenShift will automatically assign fsGroup from the namespace's UID range
-  # fsGroup: 65534
+  fsGroup:
   # supplementalGroups - supplemental Groups IDs are used for controlling access to shared storage like NFS and GlusterFS
   # Replace supplementalGroup Id with NFS User's groupId if the root squash is enabled on NFS server otherwise volume access will fail.
   # OpenShift will automatically assign supplementalGroups from the namespace's UID range
-  # supplementalGroups:
-  # - 65534
+  supplementalGroups: []
   # rootSquashCheck flag has been created for the new deployment to indicate whether the user has reviewed the rootSquash requirements.
   # Set it to true - if the deployment user has read the rootSquash requirement.
   # Set it to false - if the deployment user has not read the rootSquash requirement.
@@ -104,8 +103,7 @@ storageSecurity:
     enabled: true
     # It should correspond to either the fsGroup or supplementalGroup ID
     # OpenShift will automatically assign runAsUser from the namespace's UID range
-    # Comment out runAsUser to let OpenShift assign it automatically
-    # runAsUser: 65534
+    runAsUser:
   
 # Specify these fields for Services
 service:
