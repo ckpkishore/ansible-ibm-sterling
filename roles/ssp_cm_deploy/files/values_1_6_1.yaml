@@ -146,9 +146,9 @@ secret:
 # Specify the service account details
 serviceAccount:
   # Set this field to `true` to create service account or `false` to use existing service account 
-  create: true
+  create: false
   # Specify the name of service account to be used
-  name: "" 
+  name: "default" 
 
 
 
