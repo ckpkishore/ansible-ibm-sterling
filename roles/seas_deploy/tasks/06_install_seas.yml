@@ -15,7 +15,7 @@
     msg:
       - "Image Repository  ................. {{ compatibility_matrix[seas_version].image_repository }}"
       - "Image Tag         ................. {{ compatibility_matrix[seas_version].image_tag }}"
-      - "helm install --timeout 10m0s -f {{ my_valuesfile }} -n {{ seas_namespace }} s0 {{ my_helmfile }}"
+      - "helm install --timeout 10m0s -f {{ my_valuesfile }} -n {{ seas_namespace }} --kube-version 1.32.0 s0 {{ my_helmfile }}"
 
 - name: Run Helm install command
   ansible.builtin.command:
