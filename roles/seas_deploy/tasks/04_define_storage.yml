@@ -89,3 +89,9 @@
   ansible.builtin.set_fact:
     seas_use_dynamic_provisioning: false
     seas_storage_class: "{{ my_storage_class }}"
+
+- name: Display SEAS storage class configuration
+  ansible.builtin.debug:
+    msg:
+      - "Dynamic provisioning enabled: {{ seas_use_dynamic_provisioning }}"
+      - "Storage class: {{ seas_storage_class }}"

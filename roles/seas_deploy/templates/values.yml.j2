@@ -19,15 +19,25 @@ seasArgs:
   installAnyWhereMaxHeap: "1G"
 
 storageSecurity:
-  fsGroup: null
-  supplementalGroups: []
+  fsGroup: 65534
+  supplementalGroups: [65534]
   rootSquashCheck: true
-
+  
 persistentVolume:
   enabled: true
   useDynamicProvisioning: false
   existingClaimName: "s0-ibm-seas-pvc-{{ my_serial }}"
 
+  useDynamicProvisioning: true
+  # Specify the existing PV claim name to be used for deployment
+  existingClaimName: ""
+  # Specify this to use selector label name for PV-PVC bind
+  labelName: ""
+  # Specify this to use selector label value for PV-PVC bind
+  labelValue: ""
+  # Specify this to set storage class name
+  storageClassName: "{{ storage_class_matrix[ ssp_cm_storage_class ].rwo }}"
+  
 service:
   type: "LoadBalancer"
   loadBalancerIP: "" 
