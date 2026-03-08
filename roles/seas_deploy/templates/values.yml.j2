@@ -27,16 +27,6 @@ persistentVolume:
   enabled: true
   useDynamicProvisioning: false
   existingClaimName: "s0-ibm-seas-pvc-{{ my_serial }}"
-
-  useDynamicProvisioning: true
-  # Specify the existing PV claim name to be used for deployment
-  existingClaimName: ""
-  # Specify this to use selector label name for PV-PVC bind
-  labelName: ""
-  # Specify this to use selector label value for PV-PVC bind
-  labelValue: ""
-  # Specify this to set storage class name
-  storageClassName: "{{ storage_class_matrix[ seas_storage_class ].rwo }}"
   
 service:
   type: "LoadBalancer"
