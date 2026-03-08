@@ -50,6 +50,10 @@ ssp_cm_generate_certificates: true  # true when run SSPCm and after SSP
 
 # https://github.com/IBM/charts/tree/master/repo/ibm-helm
 compatibility_matrix:
+  6.2.1.2-iFix00-2026-02-19:
+    helm_version: "1.6.3"
+    image_tag: "6.2.1.2-iFix00-2026-02-19"
+    affinity_default: "{}"
   6.2.1.1-iFix00-2025-10-15:
     helm_version: "1.6.1"
     image_tag: "6.2.1.1-iFix00-2025-10-15"
@@ -82,6 +86,12 @@ compatibility_matrix:
 # Storage Class Matrix
 # -----------------------------------------------------------------------------
 storage_class_matrix:
+  crc-csi:
+    rwx: "crc-csi"   # ReadWriteMany
+    rwx_nogid: "crc-csi" # ReadWriteMany no GID
+    rwo: "crc-csi"       # ReadWriteOnce
+    rom: ""                     # ReadOnlyMany
+    rwop: ""                    # ReadWriteOncePod
   ibmcloud:
     rwx: "ibmc-file-gold-gid"   # ReadWriteMany
     rwx_nogid: "ibmc-file-gold" # ReadWriteMany no GID
