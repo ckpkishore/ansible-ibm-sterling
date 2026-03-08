@@ -19,7 +19,7 @@
   ansible.builtin.set_fact:
     my_storage_class: "crc"
   when:
-    - "'crc-csi-hostpath-provisioner' in my_storage_list"
+    - "'crc-csi' in my_storage_list"
 
 - name: Check for IBM Cloud StorageClass
   ansible.builtin.set_fact:

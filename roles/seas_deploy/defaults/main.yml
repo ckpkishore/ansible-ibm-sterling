@@ -61,9 +61,9 @@ compatibility_matrix:
 # -----------------------------------------------------------------------------
 storage_class_matrix:
   crc:
-    rwx: "crc-csi-hostpath-provisioner"   # ReadWriteMany
-    rwx_nogid: "crc-csi-hostpath-provisioner" # ReadWriteMany no GID
-    rwo: "crc-csi-hostpath-provisioner"       # ReadWriteOnce
+    rwx: "crc-csi"   # ReadWriteMany
+    rwx_nogid: "crc-csi" # ReadWriteMany no GID
+    rwo: "crc-csi"       # ReadWriteOnce
     rom: ""                     # ReadOnlyMany
     rwop: ""                    # ReadWriteOncePod
   ibmcloud:
