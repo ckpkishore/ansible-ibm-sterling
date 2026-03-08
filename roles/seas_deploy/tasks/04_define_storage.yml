@@ -17,7 +17,7 @@
 # -----------------------------------------------------------------------------
 - name: Check for CRC StorageClass
   ansible.builtin.set_fact:
-    my_storage_class: "crc"
+    my_storage_class: "crc-csi"
   when:
     - "'crc-csi' in my_storage_list"
 

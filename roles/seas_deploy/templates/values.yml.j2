@@ -36,7 +36,7 @@ persistentVolume:
   # Specify this to use selector label value for PV-PVC bind
   labelValue: ""
   # Specify this to set storage class name
-  storageClassName: "{{ storage_class_matrix[ ssp_cm_storage_class ].rwo }}"
+  storageClassName: "{{ storage_class_matrix[ seas_storage_class ].rwo }}"
   
 service:
   type: "LoadBalancer"

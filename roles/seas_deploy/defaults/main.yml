@@ -60,7 +60,7 @@ compatibility_matrix:
 # Storage Class Matrix
 # -----------------------------------------------------------------------------
 storage_class_matrix:
-  crc:
+  crc-csi:
     rwx: "crc-csi"   # ReadWriteMany
     rwx_nogid: "crc-csi" # ReadWriteMany no GID
     rwo: "crc-csi"       # ReadWriteOnce
