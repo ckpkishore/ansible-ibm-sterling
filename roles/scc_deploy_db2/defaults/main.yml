@@ -29,6 +29,12 @@ db2_svc_ci: "{{ db2_id }}-ci"
 db2_storage_size: "10Gi" # 40Gi
 
 storage_class_matrix:
+  crc-csi:
+    rwx: "crc-csi"   # ReadWriteMany
+    rwx_nogid: "crc-csi" # ReadWriteMany no GID
+    rwo: "crc-csi"       # ReadWriteOnce
+    rom: ""                     # ReadOnlyMany
+    rwop: ""                    # ReadWriteOncePod
   ibmcloud:
     rwx: "ibmc-file-gold-gid"   # ReadWriteMany
     rwx_nogid: "ibmc-file-gold" # ReadWriteMany no GID

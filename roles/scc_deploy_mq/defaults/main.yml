@@ -24,6 +24,12 @@ mq_route_web: "{{ mq_name }}-web"
 
 
 storage_class_matrix:
+  crc-csi:
+    rwx: "crc-csi"   # ReadWriteMany
+    rwx_nogid: "crc-csi" # ReadWriteMany no GID
+    rwo: "crc-csi"       # ReadWriteOnce
+    rom: ""                     # ReadOnlyMany
+    rwop: ""                    # ReadWriteOncePod
   ibmcloud:
     rwx: "ibmc-file-gold-gid"   # ReadWriteMany
     rwx_nogid: "ibmc-file-gold" # ReadWriteMany no GID
