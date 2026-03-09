@@ -79,6 +79,11 @@ compatibility_matrix:
     image_tag: "6.4.2.0_2025-11-18"
     copy_dbdriver_tag: "2024"
     kube_version: '>=1.27.0'
+  6.4.2.0_2025-11-18:
+    helm_version: "4.2.0"
+    image_tag: "6.4.2.0_2025-11-18"
+    copy_dbdriver_tag: "2024"
+    kube_version: '>=1.27.0'
   6.4.0.0.iFix01_2025-05-19:
     helm_version: "4.0.9"
     image_tag: "6.4.0.0.iFix01_2025-05-19"
@@ -113,6 +118,12 @@ compatibility_matrix:
 # Storage Class Matrix - definition by Cloud Provider
 # -----------------------------------------------------------------------------
 storage_class_matrix:
+  crc-csi:
+    rwx: "crc-csi"   # ReadWriteMany
+    rwx_nogid: "crc-csi" # ReadWriteMany no GID
+    rwo: "crc-csi"       # ReadWriteOnce
+    rom: ""                     # ReadOnlyMany
+    rwop: ""                    # ReadWriteOncePod
   ibmcloud:
     rwx: "ibmc-file-gold-gid"   # ReadWriteMany
     rwx_nogid: "ibmc-file-gold" # ReadWriteMany no GID
