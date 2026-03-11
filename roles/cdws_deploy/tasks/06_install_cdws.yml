@@ -30,29 +30,29 @@
   changed_when: helm_cout.rc != 0
   when: not cdws_skip_helm
 
-- name: "Lookup Connect:Direct Pod"
-  kubernetes.core.k8s_info:
-    kind: Pod
-    namespace: "{{ cdws_namespace }}"
-    label_selectors:
-      - release={{ cdws_helm.release }}
-    wait: true
-    wait_sleep: 30
-    wait_timeout: 300 # 5 mins until we give up waiting for the pod to get into the expected state
-    wait_condition:
-      type: Ready
-      status: "True"
-  register: cdws_pod
-  when: not cdws_skip_helm
+# - name: "Lookup Connect:Direct Pod"
+#   kubernetes.core.k8s_info:
+#     kind: Pod
+#     namespace: "{{ cdws_namespace }}"
+#     label_selectors:
+#       - release={{ cdws_helm.release }}
+#     wait: true
+#     wait_sleep: 30
+#     wait_timeout: 300 # 5 mins until we give up waiting for the pod to get into the expected state
+#     wait_condition:
+#       type: Ready
+#       status: "True"
+#   register: cdws_pod
+#   when: not cdws_skip_helm
 
-- name: Configure facts
-  ansible.builtin.set_fact:
-    cdws_pod_name: "{{ cdws_pod.resources[0].metadata.name }}"
+# - name: Configure facts
+#   ansible.builtin.set_fact:
+#     cdws_pod_name: "{{ cdws_pod.resources[0].metadata.name }}"
 
 - name: "IBM Sterling Connect:Direct Summary:"
   ansible.builtin.debug:
     msg:
       - "IBM Sterling Connect:Direct status .................. Ready!"
-      - "Connect:Direct namespace ............................ {{ cdws_namespace }}"
-      - "Pod name ............................................ {{ cdws_pod_name }}"
-      - "For username and password check secret .............. {{ cdws_secret }}'"
+      # - "Connect:Direct namespace ............................ {{ cdws_namespace }}"
+      # - "Pod name ............................................ {{ cdws_pod_name }}"
+      # - "For username and password check secret .............. {{ cdws_secret }}'"
