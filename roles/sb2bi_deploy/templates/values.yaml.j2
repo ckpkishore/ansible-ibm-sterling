@@ -204,6 +204,8 @@ setupCfg:
   licenseAcceptEnableFinancialServices: false
   licenseAcceptEnableFileOperation: true
 
+  enableSfg2: {{ si_enableSfg2 | default('false') }}
+
   systemPassphraseSecret: {{ si_system_passphrase_secret }}
   enableFipsMode: {{ si_helm_values.setupCfg.enableFipsMode | default('false') }}
   nistComplianceMode: "{{ si_helm_values.setupCfg.nistComplianceMode | default('off') }}"
@@ -1110,4 +1112,38 @@ as4Service:
       internal:
         host:
 
+identityService:
+  enabled: {{ si_enableSfg2 | default('false') }}
+  license: true
+  replicaCount: 1
+  image:
+    repository: "cp.icr.io/cp/ibm-b2bi/b2bi-identityservice"
+    # Provide the tag value in double quotes
+    tag: "{{ compatibility_matrix[ si_version ].identityService.image.tag | default('') }}"
+    digest: 
+    pullPolicy: IfNotPresent
+    pullSecret: ""
+  serviceAccount:
+    name: default
+  service:
+    type: ClusterIP
+    externalPort: 443
+    externalIP:
+  ingress:
+    enabled: true
+    host: ""
+  application:
+    server:
+      ssl:
+        enabled: false
+        tlsSecretName:
+    # Name of Client secret which contains client id and client secret.
+    clientSecret: "identity-client-secret"
+    # Database configuration
+    dbVendor: {{ si_dbvendor }}
+    dbHost: {{ si_dbhost }}
+    dbPort: {{ si_dbport }}
+    dbData: {{ si_dbname }}
+    dbDrivers: {{ si_dbdrivers }}
+    dbSecret: {{ si_db_secret }}
 
