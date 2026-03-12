@@ -36,7 +36,7 @@ serviceAccount:
 # Specify these fields for Services
 service:
   # ClusterPort to be exposed
-  type: LoadBalancer
+  type: ClusterIP
   loadBalancerIP: ""
   sessionAffinity: "ClientIP"
 
