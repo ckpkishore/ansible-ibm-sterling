@@ -124,6 +124,11 @@
   ansible.builtin.set_fact:
     my_serial: "{{ lookup('password', '/dev/null length=8 chars=ascii_lowercase,digits') }}"
 
+# -----------------------------------------------------------------------------
+- name: Get OpenShift cluster domain
+  command: oc get ingresses.config.openshift.io cluster -o jsonpath='{.spec.domain}'
+  register: cluster_domain
+
 # Debug
 # -----------------------------------------------------------------------------
 - name: Debug

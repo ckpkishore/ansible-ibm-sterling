@@ -1131,7 +1131,7 @@ identityService:
     externalIP:
   ingress:
     enabled: true
-    host: ""
+    host: "id-{{ si_instanceid }}.{{ cluster_domain.stdout }}"
   application:
     server:
       ssl:
