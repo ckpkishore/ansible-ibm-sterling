@@ -116,6 +116,9 @@
   ansible.builtin.set_fact:
     si_enableSfg2: true
   when:
+    - compatibility_matrix[si_version].identityService is defined
+    - compatibility_matrix[si_version].identityService.image is defined
+    - compatibility_matrix[si_version].identityService.image.tag is defined
     - compatibility_matrix[si_version].identityService.image.tag != ""
 
 # 6. Serial ID
