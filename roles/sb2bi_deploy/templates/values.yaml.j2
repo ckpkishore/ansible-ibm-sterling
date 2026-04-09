@@ -101,7 +101,7 @@ ingress:
   port:
 
 dataSetup:
-  enabled: {{ si_datasetup_enabled }}
+  enabled: false
   upgrade: {{ si_datasetup_upgrade }}
   image:
     repository: "cp.icr.io/cp/ibm-b2bi/b2bi-dbsetup"
@@ -267,6 +267,7 @@ setupCfg:
   sapSncLibName:  
 
   launchClaServer: false
+  clientSecret: "identity-client-secret"
 
 asi:
   replicaCount: 1
@@ -1135,7 +1136,7 @@ identityService:
   application:
     server:
       ssl:
-        enabled: false
+        enabled: true
         tlsSecretName:
     # Name of Client secret which contains client id and client secret.
     clientSecret: "identity-client-secret"
