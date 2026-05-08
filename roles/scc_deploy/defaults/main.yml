@@ -79,11 +79,6 @@ compatibility_matrix:
     image_tag: "6.4.2.0_2025-11-18"
     copy_dbdriver_tag: "2024"
     kube_version: '>=1.27.0'
-  6.4.2.0_2025-11-18:
-    helm_version: "4.2.0"
-    image_tag: "6.4.2.0_2025-11-18"
-    copy_dbdriver_tag: "2024"
-    kube_version: '>=1.27.0'
   6.4.0.0.iFix01_2025-05-19:
     helm_version: "4.0.9"
     image_tag: "6.4.0.0.iFix01_2025-05-19"
@@ -131,10 +126,10 @@ storage_class_matrix:
     rom: "ibmc-file-gold-gid"   # ReadOnlyMany
     rwop: ""                    # ReadWriteOncePod
   redhat:
-    rwx: "ocs-storagecluster-cephfs"
-    rwx_nogid: "ocs-storagecluster-cephfs"
+    rwx: "ocs-external-storagecluster-ceph-rbd"
+    rwx_nogid: "ocs-external-storagecluster-ceph-rbd"
     rwo: "ocs-storagecluster-cephfs" # "ocs-storagecluster-ceph-rbd"
-    rom: "ocs-storagecluster-cephfs"
+    rom: "ocs-external-storagecluster-ceph-rbd"
     rwop: ""
   redhat-external:
     rwx: "ocs-external-storagecluster-cephfs"

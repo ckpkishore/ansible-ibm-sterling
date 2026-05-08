@@ -72,7 +72,7 @@
     my_storage_class: "redhat"
   when:
     - my_storage_class == ''
-    - "'ocs-storagecluster-cephfs' in my_storage_list"
+    - "'ocs-external-storagecluster-ceph-rbd' in my_storage_list"
 
 - name: Check for Redhat External Storageclass
   ansible.builtin.set_fact:

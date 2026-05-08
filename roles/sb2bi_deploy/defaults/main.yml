@@ -223,6 +223,41 @@ compatibility_matrix:
     as4Service:
       image:
         tag: "6.2.1.0"
+  6.2.0.5:
+    helm_version: "3.0.7"
+    ocp_min_version: "4.14"
+    k8s_min_version: "1.27"
+    k8s_max_version: "1.30"
+    global:
+      image:
+        tag: "6.2.0.5"
+    resourcesInit:
+      image:
+        tag: "6.2.0.5"
+    dataSetup:
+      image:
+        tag: "6.2.0.5"
+    integrations:
+      seasIntegration:
+        seasVersion: "1.0"
+      itxIntegration:
+        image:
+          tag: "10.1.2.1.20241122"
+      itxaIntegration:
+        image:
+          tag: "10.0.1.10-x86_64"
+        resourcesInit:
+          image:
+            tag: "10.0.1.10-x86_64"
+    test:
+      image:
+        tag: '1.1.68'
+    purge:
+      image:
+        tag: "6.2.0.5"
+    documentService:
+      image:
+        tag: 1.0.0.5
   6.2.0.4:
     helm_version: "3.0.6"
     ocp_min_version: "4.14"
@@ -375,10 +410,10 @@ storage_class_matrix:
     rom: "ibmc-file-gold-gid"       # ReadOnlyMany  #FIXME need to define this value
     rwop: ""                    # ReadWriteOncePod
   redhat:
-    rwx: "ocs-storagecluster-cephfs"
-    rwx_nogid: "ocs-storagecluster-cephfs"
-    rwo: "ocs-storagecluster-ceph-rbd"
-    rom: "ocs-storagecluster-cephfs"
+    rwx: "ocs-external-storagecluster-ceph-rbd"
+    rwx_nogid: "ocs-external-storagecluster-ceph-rbd"
+    rwo: "ocs-external-storagecluster-ceph-rbd"
+    rom: "ocs-external-storagecluster-ceph-rbd"
     rwop: ""
   aws:
     rwx: "efs"

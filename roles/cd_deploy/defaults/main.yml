@@ -87,9 +87,9 @@ storage_class_matrix:
     rom: ""                     # ReadOnlyMany
     rwop: ""                    # ReadWriteOncePod
   redhat:
-    rwx: "ocs-storagecluster-cephfs"
-    rwx_nogid: "ocs-storagecluster-cephfs"
-    rwo: "ocs-storagecluster-ceph-rbd"
+    rwx: "ocs-external-storagecluster-ceph-rbd"
+    rwx_nogid: "ocs-external-storagecluster-ceph-rbd"
+    rwo: "ocs-external-storagecluster-ceph-rbd"
     rom: ""
     rwop: ""
   redhat-external:
