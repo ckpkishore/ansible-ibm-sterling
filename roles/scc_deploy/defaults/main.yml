@@ -126,16 +126,10 @@ storage_class_matrix:
     rom: "ibmc-file-gold-gid"   # ReadOnlyMany
     rwop: ""                    # ReadWriteOncePod
   redhat:
-    rwx: "ocs-external-storagecluster-ceph-rbd"
-    rwx_nogid: "ocs-external-storagecluster-ceph-rbd"
-    rwo: "ocs-external-storagecluster-ceph-rbd" # "ocs-storagecluster-ceph-rbd"
-    rom: "ocs-external-storagecluster-ceph-rbd"
-    rwop: ""
-  redhat-external:
     rwx: "ocs-external-storagecluster-cephfs"
     rwx_nogid: "ocs-external-storagecluster-cephfs"
-    rwo: "ocs-external-storagecluster-ceph-rbd"
-    rom: ""
+    rwo: "ocs-external-storagecluster-cephfs" # "ocs-storagecluster-ceph-rbd"
+    rom: "ocs-external-storagecluster-cephfs"
     rwop: ""
   aws:
     rwx: "efs"
