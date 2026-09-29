@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kowl
+  namespace: {{ kafka_l4_namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kowl
+  template:
+    metadata:
+      labels:
+        app: kowl
+    spec:
+      containers:
+      - name: kowl
+        image: {{ kowl_image }}
+        env:
+        - name: KAFKA_BROKERS
+          value: "kafka-service:{{ kafka_port }}"
+        ports:
+        - containerPort: {{ kowl_port }}

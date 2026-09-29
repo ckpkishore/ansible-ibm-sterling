@@ -1,0 +1,31 @@
+---
+- name: Deploy Zookeeper Deployment
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'zookeeper/deployment.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: zk_deployment_result
+  changed_when: "'created' in zk_deployment_result.stdout or 'configured' in zk_deployment_result.stdout"
+
+- name: Deploy Zookeeper Service
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'zookeeper/service.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: zk_service_result
+  changed_when: "'created' in zk_service_result.stdout or 'configured' in zk_service_result.stdout"
+
+- name: Wait for Zookeeper to be ready
+  ansible.builtin.shell: |
+    oc get deployment zookeeper -n {{ kafka_l4_namespace }} -o jsonpath='{.status.availableReplicas}'
+  register: zk_replicas
+  until: zk_replicas.stdout | default('0') | int == 1
+  retries: 30
+  delay: 10
+  changed_when: false
+
+# Made with Bob

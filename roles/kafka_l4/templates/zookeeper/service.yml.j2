@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper-service
+  namespace: {{ kafka_l4_namespace }}
+spec:
+  ports:
+  - port: {{ zookeeper_client_port }}
+    targetPort: {{ zookeeper_client_port }}
+  selector:
+    app: zookeeper

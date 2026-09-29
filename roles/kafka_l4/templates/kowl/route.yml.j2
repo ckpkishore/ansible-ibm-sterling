@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: kowl
+  namespace: {{ kafka_l4_namespace }}
+spec:
+  to:
+    kind: Service
+    name: kowl-service
+  port:
+    targetPort: {{ kowl_port }}
+  tls:
+    termination: {{ kowl_route_tls_termination }}

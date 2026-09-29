@@ -1,0 +1,53 @@
+---
+- name: Deploy Kowl Deployment
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'kowl/deployment.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kowl_deployment_result
+  changed_when: "'created' in kowl_deployment_result.stdout or 'configured' in kowl_deployment_result.stdout"
+
+- name: Deploy Kowl Service
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'kowl/service.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kowl_service_result
+  changed_when: "'created' in kowl_service_result.stdout or 'configured' in kowl_service_result.stdout"
+
+- name: Deploy Kowl Route
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'kowl/route.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kowl_route_result
+  changed_when: "'created' in kowl_route_result.stdout or 'configured' in kowl_route_result.stdout"
+
+- name: Wait for Kowl to be ready
+  ansible.builtin.shell: |
+    oc get deployment kowl -n {{ kafka_l4_namespace }} -o jsonpath='{.status.availableReplicas}'
+  register: kowl_replicas
+  until: kowl_replicas.stdout | default('0') | int == 1
+  retries: 30
+  delay: 10
+  changed_when: false
+
+- name: Get Kowl Route URL
+  ansible.builtin.shell: |
+    oc get route kowl -n {{ kafka_l4_namespace }} -o jsonpath='{.spec.host}'
+  register: kowl_route_host
+  changed_when: false
+  failed_when: false
+
+- name: Display Kowl URL
+  ansible.builtin.debug:
+    msg: "Kowl UI is accessible at: https://{{ kowl_route_host.stdout }}"
+  when: kowl_route_host.stdout | length > 0
+
+# Made with Bob

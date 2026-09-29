@@ -1,0 +1,17 @@
+---
+- name: Verify namespace exists
+  ansible.builtin.command: oc get namespace {{ kafka_l4_namespace }}
+  register: namespace_check
+  failed_when: false
+  changed_when: false
+
+- name: Fail if namespace does not exist
+  ansible.builtin.fail:
+    msg: "Namespace '{{ kafka_l4_namespace }}' does not exist. Please create it first or provide an existing namespace."
+  when: namespace_check.rc != 0
+
+- name: Display namespace information
+  ansible.builtin.debug:
+    msg: "Using existing namespace: {{ kafka_l4_namespace }}"
+
+# Made with Bob

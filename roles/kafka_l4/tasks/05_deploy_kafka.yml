@@ -1,0 +1,31 @@
+---
+- name: Deploy Kafka Deployment
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'kafka/deployment.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kafka_deployment_result
+  changed_when: "'created' in kafka_deployment_result.stdout or 'configured' in kafka_deployment_result.stdout"
+
+- name: Deploy Kafka Service
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'kafka/service.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kafka_service_result
+  changed_when: "'created' in kafka_service_result.stdout or 'configured' in kafka_service_result.stdout"
+
+- name: Wait for Kafka to be ready
+  ansible.builtin.shell: |
+    oc get deployment kafka -n {{ kafka_l4_namespace }} -o jsonpath='{.status.availableReplicas}'
+  register: kafka_replicas
+  until: kafka_replicas.stdout | default('0') | int == 1
+  retries: 30
+  delay: 10
+  changed_when: false
+
+# Made with Bob

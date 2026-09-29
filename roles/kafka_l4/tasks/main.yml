@@ -1,0 +1,20 @@
+---
+- name: Check required variables
+  ansible.builtin.include_tasks: 01_check_vars.yml
+
+- name: Verify namespace exists
+  ansible.builtin.include_tasks: 02_create_namespace.yml
+
+- name: Deploy PVCs
+  ansible.builtin.include_tasks: 03_deploy_pvcs.yml
+
+- name: Deploy Zookeeper
+  ansible.builtin.include_tasks: 04_deploy_zookeeper.yml
+
+- name: Deploy Kafka
+  ansible.builtin.include_tasks: 05_deploy_kafka.yml
+
+- name: Deploy Kowl
+  ansible.builtin.include_tasks: 06_deploy_kowl.yml
+
+# Made with Bob

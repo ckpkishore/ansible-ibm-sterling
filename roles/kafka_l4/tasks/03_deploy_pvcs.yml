@@ -1,0 +1,45 @@
+---
+- name: Deploy Zookeeper Data PVC
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'pvcs/zk-data-pvc.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: zk_data_pvc_result
+  changed_when: "'created' in zk_data_pvc_result.stdout or 'configured' in zk_data_pvc_result.stdout"
+
+- name: Deploy Zookeeper Transaction Logs PVC
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'pvcs/zk-txn-logs-pvc.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: zk_txn_pvc_result
+  changed_when: "'created' in zk_txn_pvc_result.stdout or 'configured' in zk_txn_pvc_result.stdout"
+
+- name: Deploy Kafka Data PVC
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'pvcs/kafka-data-pvc.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: kafka_data_pvc_result
+  changed_when: "'created' in kafka_data_pvc_result.stdout or 'configured' in kafka_data_pvc_result.stdout"
+
+- name: Wait for PVCs to be bound
+  ansible.builtin.shell: |
+    oc get pvc {{ item }} -n {{ kafka_l4_namespace }} -o jsonpath='{.status.phase}'
+  register: pvc_status
+  until: pvc_status.stdout == "Bound"
+  retries: 30
+  delay: 10
+  changed_when: false
+  loop:
+    - zk-data-pvc
+    - zk-txn-logs-pvc
+    - kafka-data-pvc
+
+# Made with Bob

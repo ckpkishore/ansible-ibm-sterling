@@ -1,0 +1,18 @@
+---
+- name: Validate required variables
+  ansible.builtin.assert:
+    that:
+      - kafka_l4_namespace is defined
+      - kafka_l4_namespace | length > 0
+    fail_msg: "kafka_l4_namespace must be defined and not empty"
+    success_msg: "All required variables are defined"
+
+- name: Display deployment configuration
+  ansible.builtin.debug:
+    msg:
+      - "Kafka L4 Namespace: {{ kafka_l4_namespace }}"
+      - "Zookeeper Port: {{ zookeeper_client_port }}"
+      - "Kafka Port: {{ kafka_port }}"
+      - "Kowl Port: {{ kowl_port }}"
+
+# Made with Bob

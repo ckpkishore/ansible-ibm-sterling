@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka
+  namespace: {{ kafka_l4_namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+      - name: kafka
+        image: {{ kafka_image }}
+        ports:
+        - containerPort: {{ kafka_port }}
+        env:
+        - name: KAFKA_BROKER_ID
+          value: "{{ kafka_broker_id }}"
+        - name: KAFKA_ZOOKEEPER_CONNECT
+          value: "zookeeper-service:{{ zookeeper_client_port }}"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: "PLAINTEXT://kafka-service:{{ kafka_port }}"
+        - name: KAFKA_LISTENER_SECURITY_PROTOCOL_MAP
+          value: "PLAINTEXT:PLAINTEXT"
+        - name: KAFKA_INTER_BROKER_LISTENER_NAME
+          value: "PLAINTEXT"
+        - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+          value: "{{ kafka_offsets_topic_replication_factor }}"
+        volumeMounts:
+        - name: kafka-data
+          mountPath: /var/lib/kafka/data
+          subPath: kafka-data
+      volumes:
+      - name: kafka-data
+        persistentVolumeClaim:
+          claimName: kafka-data-pvc

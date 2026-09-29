@@ -1,0 +1,30 @@
+---
+# Namespace for Kafka L4 deployment
+kafka_l4_namespace: "ibm-b2bi-dev01-app"
+
+# Zookeeper configuration
+zookeeper_client_port: 32181
+zookeeper_tick_time: "2000"
+
+# Kafka configuration
+kafka_broker_id: "1"
+kafka_port: 29092
+kafka_offsets_topic_replication_factor: "1"
+
+# Kowl configuration
+kowl_port: 8080
+
+# Storage configuration
+zk_data_storage: "1Gi"
+zk_txn_logs_storage: "1Gi"
+kafka_data_storage: "2Gi"
+
+# Image configuration
+zookeeper_image: "confluentinc/cp-zookeeper:latest"
+kafka_image: "confluentinc/cp-kafka:7.3.0"
+kowl_image: "quay.io/cloudhut/kowl:master"
+
+# Route configuration
+kowl_route_tls_termination: "edge"
+
+# Made with Bob

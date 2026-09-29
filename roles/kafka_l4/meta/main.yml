@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: IBM Sterling Team
+  description: Deploy Kafka L4 (Lightweight) with Zookeeper and Kowl UI
+  company: IBM
+  license: Apache-2.0
+  min_ansible_version: "2.9"
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+  galaxy_tags:
+    - kafka
+    - zookeeper
+    - kowl
+    - messaging
+    - openshift
+
+dependencies: []
+
+# Made with Bob

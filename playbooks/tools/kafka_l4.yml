@@ -1,0 +1,45 @@
+---
+- name: Deploy Kafka L4 (Lightweight) with Zookeeper and Kowl
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  
+  vars:
+    # Namespace can be passed as environment variable or use default
+    kafka_l4_namespace: "{{ lookup('env', 'KAFKA_NAMESPACE') | default('ibm-b2bi-dev01-app', true) }}"
+  
+  pre_tasks:
+    - name: Display deployment information
+      ansible.builtin.debug:
+        msg:
+          - "=========================================="
+          - "Kafka L4 Deployment"
+          - "=========================================="
+          - "Namespace: {{ kafka_l4_namespace }}"
+          - "=========================================="
+  
+  roles:
+    - kafka_l4
+  
+  post_tasks:
+    - name: Display deployment summary
+      ansible.builtin.debug:
+        msg:
+          - "=========================================="
+          - "Kafka L4 Deployment Complete"
+          - "=========================================="
+          - "Namespace: {{ kafka_l4_namespace }}"
+          - ""
+          - "Components deployed:"
+          - "  - Zookeeper (1 replica)"
+          - "  - Kafka Broker (1 replica)"
+          - "  - Kowl UI (1 replica)"
+          - ""
+          - "To access Kowl UI, get the route:"
+          - "  oc get route kowl -n {{ kafka_l4_namespace }}"
+          - ""
+          - "To check deployment status:"
+          - "  oc get pods -n {{ kafka_l4_namespace }}"
+          - "=========================================="
+
+# Made with Bob
