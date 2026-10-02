@@ -1,5 +1,5 @@
 ---
-- name: Deploy Kafka L4 (Lightweight) with Zookeeper and Kowl
+- name: Deploy Kafka (Lightweight) with Zookeeper and Kowl
   hosts: localhost
   connection: local
   gather_facts: false
