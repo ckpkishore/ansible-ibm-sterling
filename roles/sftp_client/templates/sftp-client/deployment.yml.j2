@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sftp-client
+  namespace: {{ sftp_client_namespace }}
+  labels:
+    app: sftp-client
+    app.kubernetes.io/name: sftp-client
+    app.kubernetes.io/part-of: ibm-redhat-sftp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sftp-client
+  template:
+    metadata:
+      labels:
+        app: sftp-client
+        app.kubernetes.io/name: sftp-client
+        app.kubernetes.io/part-of: ibm-redhat-sftp
+    spec:
+      containers:
+      - name: sftp-client
+        # Red Hat UBI9 Toolbox — includes openssh-clients 9.9p1 (/usr/bin/sftp).
+        # No image extension needed.
+        image: {{ sftp_client_image }}
+        command: ["/bin/bash", "-c", "sleep {{ sftp_client_sleep_interval }}"]
+        env:
+        - name: SFTP_REMOTE_HOST
+          value: "{{ sftp_remote_host }}"
+        - name: SFTP_REMOTE_PORT
+          value: "{{ sftp_remote_port }}"
+        - name: SFTP_REMOTE_USER
+          value: "{{ sftp_remote_user }}"
+        resources:
+          requests:
+            cpu: "{{ sftp_client_resources_requests_cpu }}"
+            memory: "{{ sftp_client_resources_requests_memory }}"
+          limits:
+            cpu: "{{ sftp_client_resources_limits_cpu }}"
+            memory: "{{ sftp_client_resources_limits_memory }}"
+        volumeMounts:
+        - name: known-hosts
+          mountPath: /root/.ssh
+          readOnly: false
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          runAsNonRoot: false
+      volumes:
+      - name: known-hosts
+        configMap:
+          name: sftp-known-hosts
+          defaultMode: 0600

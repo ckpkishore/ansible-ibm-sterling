@@ -1,0 +1,11 @@
+---
+- name: Check required variables
+  ansible.builtin.include_tasks: 01_check_vars.yml
+
+- name: Verify namespace exists
+  ansible.builtin.include_tasks: 02_create_namespace.yml
+
+- name: Deploy SFTP client
+  ansible.builtin.include_tasks: 03_deploy_sftp_client.yml
+
+# Made with Bob

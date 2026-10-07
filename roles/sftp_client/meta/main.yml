@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: IBM Sterling Team
+  description: Deploy a persistent SFTP client pod using Red Hat UBI9 Toolbox (openssh-clients included)
+  company: IBM
+  license: Apache-2.0
+  min_ansible_version: "2.9"
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+  galaxy_tags:
+    - sftp
+    - openssh
+    - ubi9
+    - redhat
+    - openshift
+
+dependencies: []
+
+# Made with Bob

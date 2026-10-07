@@ -1,0 +1,39 @@
+---
+- name: Deploy sftp-known-hosts ConfigMap
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'sftp-client/configmap.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: sftp_cm_result
+  changed_when: "'created' in sftp_cm_result.stdout or 'configured' in sftp_cm_result.stdout"
+
+- name: Deploy SFTP Client Deployment
+  ansible.builtin.shell: |
+    oc apply -f - <<EOF
+    {{ lookup('template', 'sftp-client/deployment.yml.j2') }}
+    EOF
+  args:
+    executable: /bin/bash
+  register: sftp_deployment_result
+  changed_when: "'created' in sftp_deployment_result.stdout or 'configured' in sftp_deployment_result.stdout"
+
+- name: Wait for SFTP client pod to be ready
+  ansible.builtin.shell: |
+    oc get deployment sftp-client -n {{ sftp_client_namespace }} -o jsonpath='{.status.availableReplicas}'
+  register: sftp_replicas
+  until: sftp_replicas.stdout | default('0') | int == 1
+  retries: 30
+  delay: 10
+  changed_when: false
+
+- name: Display connection instructions
+  ansible.builtin.debug:
+    msg:
+      - "SFTP client pod is ready."
+      - "To open an interactive shell:"
+      - "  oc rsh deployment/sftp-client -n {{ sftp_client_namespace }}"
+      - "Then run:  sftp {{ sftp_remote_user | default('<user>') }}@{{ sftp_remote_host | default('<remote-host>') }}"
+
+# Made with Bob

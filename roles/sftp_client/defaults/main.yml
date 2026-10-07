@@ -1,0 +1,24 @@
+---
+# Namespace for SFTP client deployment
+sftp_client_namespace: "ibm-redhat-sftp"
+
+# Image — Red Hat UBI9 Toolbox ships openssh-clients 9.9p1 which provides /usr/bin/sftp.
+# No image extension required.
+sftp_client_image: "registry.access.redhat.com/ubi9/toolbox:latest"
+
+# SFTP defaults (used when running sftp commands inside the pod)
+sftp_remote_host: ""
+sftp_remote_port: 22
+sftp_remote_user: ""
+
+# Keep-alive: the container sleeps indefinitely so it stays available for oc rsh / exec.
+# Override to a shorter interval for ephemeral/batch use-cases.
+sftp_client_sleep_interval: "infinity"
+
+# Resource limits for the deployment
+sftp_client_resources_requests_cpu: "50m"
+sftp_client_resources_requests_memory: "64Mi"
+sftp_client_resources_limits_cpu: "200m"
+sftp_client_resources_limits_memory: "256Mi"
+
+# Made with Bob

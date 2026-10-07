@@ -1,0 +1,19 @@
+---
+- name: Validate required variables
+  ansible.builtin.assert:
+    that:
+      - sftp_client_namespace is defined
+      - sftp_client_namespace | length > 0
+    fail_msg: "sftp_client_namespace must be defined and not empty"
+    success_msg: "All required variables are defined"
+
+- name: Display deployment configuration
+  ansible.builtin.debug:
+    msg:
+      - "SFTP Client Namespace : {{ sftp_client_namespace }}"
+      - "Image                 : {{ sftp_client_image }}"
+      - "Remote Host           : {{ sftp_remote_host | default('(not set — configure via oc rsh)') }}"
+      - "Remote Port           : {{ sftp_remote_port }}"
+      - "Remote User           : {{ sftp_remote_user | default('(not set — configure via oc rsh)') }}"
+
+# Made with Bob

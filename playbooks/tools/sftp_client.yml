@@ -1,0 +1,47 @@
+---
+- name: Deploy SFTP Client (Red Hat UBI9 Toolbox)
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    # Namespace can be passed as environment variable or use default
+    sftp_client_namespace: "{{ lookup('env', 'SFTP_CLIENT_NAMESPACE') | default('ibm-redhat-sftp', true) }}"
+
+  pre_tasks:
+    - name: Display deployment information
+      ansible.builtin.debug:
+        msg:
+          - "=========================================="
+          - "SFTP Client Deployment"
+          - "=========================================="
+          - "Namespace  : {{ sftp_client_namespace }}"
+          - "Image      : registry.access.redhat.com/ubi9/toolbox:latest"
+          - "SFTP from  : openssh-clients 9.9p1 (included in ubi9/toolbox)"
+          - "=========================================="
+
+  roles:
+    - sftp_client
+
+  post_tasks:
+    - name: Display deployment summary
+      ansible.builtin.debug:
+        msg:
+          - "=========================================="
+          - "SFTP Client Deployment Complete"
+          - "=========================================="
+          - "Namespace: {{ sftp_client_namespace }}"
+          - ""
+          - "Components deployed:"
+          - "  - sftp-client Deployment (1 replica, ubi9/toolbox)"
+          - "  - sftp-known-hosts ConfigMap"
+          - ""
+          - "To open an interactive SFTP session:"
+          - "  oc rsh deployment/sftp-client -n {{ sftp_client_namespace }}"
+          - "  sftp user@remote-host"
+          - ""
+          - "To check deployment status:"
+          - "  oc get pods -n {{ sftp_client_namespace }}"
+          - "=========================================="
+
+# Made with Bob
