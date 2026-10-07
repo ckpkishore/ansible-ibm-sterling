@@ -1,17 +1,19 @@
 ---
-- name: Verify namespace exists
-  ansible.builtin.command: oc get namespace {{ sftp_client_namespace }}
-  register: namespace_check
-  failed_when: false
-  changed_when: false
-
-- name: Fail if namespace does not exist
-  ansible.builtin.fail:
-    msg: "Namespace '{{ sftp_client_namespace }}' does not exist. Please create it first or provide an existing namespace."
-  when: namespace_check.rc != 0
+# Create Kubernetes namespace
+# -----------------------------------------------------------------------------
+- name: Create namespace for SFTP Client
+  kubernetes.core.k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ sftp_client_namespace }}"
+        labels:
+          name: sftp-client
 
 - name: Display namespace information
   ansible.builtin.debug:
-    msg: "Using existing namespace: {{ sftp_client_namespace }}"
+    msg: "Namespace '{{ sftp_client_namespace }}' is ready"
 
 # Made with Bob
