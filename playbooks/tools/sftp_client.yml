@@ -6,7 +6,7 @@
 
   vars:
     # Namespace can be passed as environment variable or use default
-    sftp_client_namespace: "{{ lookup('env', 'SFTP_CLIENT_NAMESPACE') | default('ibm-b2bi-dev01-app', true) }}"
+    sftp_client_namespace: "{{ lookup('env', 'SFTP_CLIENT_NAMESPACE') | default('ibm-redhat-sftp', true) }}"
 
   pre_tasks:
     - name: Display deployment information
