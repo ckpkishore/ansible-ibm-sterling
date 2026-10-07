@@ -1,6 +1,6 @@
 ---
 # Namespace for SFTP client deployment
-sftp_client_namespace: "ibm-redhat-sftp"
+sftp_client_namespace: "ibm-b2bi-dev01-app"
 
 # Image — Red Hat UBI9 Toolbox ships openssh-clients 9.9p1 which provides /usr/bin/sftp.
 # No image extension required.
